@@ -1,0 +1,16 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "PostgreSQL",
+    "section": "",
+    "text": "배경\n\nR 및 Python에 사용가능한 관계형 오픈소스 데이터베이스입니다.\n\n\n\n설치\n\n공식사이트(https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)로 부터 운영체제에 적합한 설치파일을 다운로드 받아 설치합니다.\n설치 시 superuser는 postgres로 설정되어 있고 password를 설정하게 됩니다. port는 5433가 지정됩니다.\n오류로 인해 재설치할 때는 서비스창에서 중단을 한 후에 제거를 해야 합니다.\n\n\n\nR에서의 연결\n\nDBI 패키지를 설치합니다.\n\n\n\n\nR Console\n\nrenv::install(\"DBI\")\n\n\n\n\n\nR Console\n\nrenv::install(\"RPostgres\")\n\n\n\n아래의 코드로 연결합니다.\n\n\n\n\nR Console\n\nlibrary(DBI)\nconn &lt;- dbConnect(RPostgres::Postgres(), \n                  dbname = \"api\", \n                  host = \"localhost\", \n                  port = 5433, \n                  user = \"postgres\", \n                  password = \"postgres\")\ndata &lt;- dbGetQuery(conn, \"SELECT * FROM table_name;\")\nprint(data)\ndbDisconnect(conn)"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
+  }
+]

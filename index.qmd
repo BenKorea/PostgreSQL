@@ -1,0 +1,67 @@
+---
+title: "PostgreSQL"
+description:  "how to use postgreSQL"
+author: "RPythonStudyGroup feat. ChatGPT"
+date: "2024-12-01"
+date-modified: "2024-12-01"
+categories:
+  - postgreSQL
+  - Tool
+---
+
+### 배경
+
+-   R 및 Python에 사용가능한 관계형 오픈소스 데이터베이스입니다.
+
+### 설치
+
+-   공식사이트(<https://www.enterprisedb.com/downloads/postgres-postgresql-downloads>)로 부터 운영체제에 적합한 설치파일을 다운로드 받아 설치합니다.
+-   이 글은 버전 17.2로 작성되었습니다.
+-   설치 시 
+    -   database superuser로서 default `postgres`가 설정되어 있고 
+    -   password를 설정하게 됩니다. 
+    -   datebase port는 default로 `5433`가 지정되며 그대로 진행하시면 됩니다.
+-   오류로 인해 재설치할 때는 서비스창에서 해당 인스턴스를 중단을 한 후에 제거를 해야 합니다.
+-   설치 확인은 
+    -   서비스창에서 postgreSQL 서비스가 실행중인지 확인하거나
+    -   SQL shell로 확인하시면 됩니다. SQL shell에서는 기본값으로 진행하시다가 설치시 설정한 password를 입력하시면 접속이 되면 정상 설치입니다.
+
+### R에서의 연결
+
+-   DBI 패키지를 설치합니다.
+
+```{r install_DBI, eval=FALSE, filename="R Console"}
+renv::install("DBI")
+```
+
+```{r install_RPostgres, eval=FALSE, filename="R Console"}
+renv::install("RPostgres")
+```
+
+-   아래의 코드로 연결합니다.
+
+
+```{r conn, eval=FALSE, filename="R Console"}
+library(DBI)
+library(RPostgres)
+
+# PostgreSQL 데이터베이스에 연결
+conn <- dbConnect(RPostgres::Postgres(), 
+                  dbname = "postgres", 
+                  host = "localhost", 
+                  port = 5432, 
+                  user = "postgres", 
+                  password = "postgres")
+
+# 스키마 목록 조회로 연결 확인
+schemas <- dbGetQuery(conn, "SELECT schema_name FROM information_schema.schemata;")
+
+# 결과 출력
+print(schemas)
+
+# 데이터베이스 연결 종료
+dbDisconnect(conn)
+
+```
+
+-   
